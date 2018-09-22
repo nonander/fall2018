@@ -1,0 +1,42 @@
+//P6.5 
+import java.util.Scanner;
+
+public class PrimeGenerator{
+    public int number;
+    public static void main(String[]args){ 
+        
+    }
+    public PrimeGenerator(int n){
+        number = n;
+    }
+    public static boolean isPrime(int n){
+        double sample = n;
+        for(double i = 2; i < 10; i ++){
+            if(i != sample){
+                if((sample / i) % 1 == 0){
+                    return false; //check to see if it divides evenly
+                }                 //into any number, and if it does, F
+            }
+        }
+        return true; //if it passes every number then it's gotta be prime
+    }
+    public int nextPrime(){
+        for(int i = 2; i < this.number; i ++){
+            if(isPrime(i)){
+                System.out.println(i);
+            }
+        }
+        return -1;
+    }
+}
+
+public class PrimePrinter{
+    public static void main(String[]args){
+        System.out.print("I would like a list of primes up until: ");
+        Scanner julie = new Scanner(System.in);
+        int value = julie.nextInt();
+        int incrementingPrimeVal = 2;
+        PrimeGenerator boi = new PrimeGenerator(value);
+        boi.nextPrime();
+    }
+}
