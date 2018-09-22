@@ -1,0 +1,61 @@
+//P6.4
+
+import java.util.Scanner;
+
+public class FactorGenerator{
+    public int num;
+    public static void main(String[]args){
+    
+    }
+    public FactorGenerator(int numberToFactor){
+        num = numberToFactor;
+    }
+    public String nextFactor(){
+        if(this.hasMoreFactors()){
+            double sample = num;
+            if( ( ( (sample/2) % 1 ) == 0) ) {
+                this.num = num/2;
+                return "2";
+            }
+            else if( ( ( (sample/3) % 1 ) == 0) ) {
+                this.num = num/3;
+                return "3";
+            }
+            else if( ( ( (sample/5) % 1) == 0) ) {
+                this.num = num/5;
+                return "5";
+            }
+        }
+    this.num = 0;
+    return "";
+    }
+    public boolean hasMoreFactors(){
+        if( ( ( (num/2) % 1 ) == 0) && (num/2) != 1){
+            return true;
+        }
+        else if( ( ( (num/3) % 1 ) == 0) && (num/3) != 1){
+            return true;
+        }
+        else if( ( ( (num/5) % 1 ) == 0) && (num/5) != 1){
+            return true;
+        }
+        this.num = 0;
+        return false;
+    }
+    public int getNum(){
+        return this.num;
+    }
+}
+
+
+public class FactorPrinter{
+    public static void main(String[]args){
+        System.out.print("What's the number you'd like to factor?: ");
+        Scanner n = new Scanner(System.in);
+        FactorGenerator noo = new FactorGenerator(n.nextInt());
+        System.out.println(noo.num);
+        while(noo.hasMoreFactors() && (noo.getNum() != 0) ){
+            System.out.println(noo.nextFactor());
+        }
+    }
+}
