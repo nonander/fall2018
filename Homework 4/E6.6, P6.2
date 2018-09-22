@@ -1,0 +1,71 @@
+//E6.6, P6.2
+import java.util.Scanner;
+import java.util.Arrays;
+import java.lang.Math;
+
+public class DataSet{
+    public static void main(String[]args){
+        Scanner n = new Scanner(System.in);
+        System.out.println("How many numbers will we be analyzing today?: ");
+        int len = n.nextInt();
+        System.out.println("Enter your numbers now:");
+        double[] arr = new double [len];
+        for(int i = 0; i < len; i ++){
+            arr[i] = n.nextDouble();
+        }
+        System.out.println("This is what your array looks like! :");
+        for(int i = 0; i < len; i ++){
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println("\n");
+
+        System.out.println("The largest value in your set is: "+ getLargest(arr));
+        System.out.println("The smallest value in your set is: "+ getSmallest(arr));
+        System.out.println("The range of your set is: "+ getRange(arr));
+        System.out.println("The mean of your set is: "+ getAverage(arr));
+        System.out.println("The standard deviation of your set is: "+ getStandardDeviation(arr));
+        
+
+
+    }
+    public void add(double value){
+
+    }
+        
+    public static double getSmallest(double [] arr){
+        double smallest = arr[0];
+        for(int i = 1; i < arr.length; i ++ ){
+            if(arr[i] < smallest) smallest = arr[i];
+        }
+        return smallest;
+    } 
+    public static double getLargest(double [] arr){
+        double biggie = arr[0];
+        for(int i = 0; i < arr.length; i ++ ){
+            if(arr[i] > biggie) biggie = arr[i];
+        }
+        return biggie;
+    }
+    public static double getRange(double [] arr){
+        double biggest = getLargest(arr);
+        double smallest = getSmallest(arr);
+        return biggest - smallest;
+    }
+    public static double getAverage(double [] arr){
+        double allOfThem = 0;
+        for(int i = 0; i < arr.length; i ++){
+            allOfThem += arr[i];
+        }
+        return (allOfThem/arr.length);
+    }
+    public static double getStandardDeviation(double [] arr){
+        double mean = getAverage(arr);
+        double sd = 0;
+        double [] almostsd = new double [arr.length];
+        for(int i = 0; i < arr.length; i ++){
+            sd += (arr[i] - mean) * (arr[i] - mean);
+        }
+        sd = sd/arr.length;
+        return Math.sqrt(sd);
+    }
+}
