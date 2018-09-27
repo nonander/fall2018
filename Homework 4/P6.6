@@ -1,0 +1,97 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class GameofNim{
+    private static int marbles;
+    int smartOrStupid;
+    public GameofNim(int n, int s){
+        this.marbles = n;
+        this.smartOrStupid = s;
+    }
+    public static void main(String[]args){
+        Random rand;
+        int first = (int)(Math.random()*2 - 1);
+        int smOrSt =  (int)(Math.ceil(Math.random()*2 - 1 ));
+        int marbs = (int)((Math.random() * 90) + 10);
+        GameofNim play = new GameofNim( marbs, smOrSt );
+        System.out.println("Here are the rules of the game. You have "+marbs
+                    + " marbles. You can take away at least one and at most "
+                    + "half of the marbles each turn. Whoever gets takes the "
+                    + "last marble (you or the computer) loses. Have fun!");
+        if(smOrSt == 1){
+            if(first == 1){
+                int deduction = troubleshoot();
+                play.marbles -= deduction;
+                System.out.println("You took "+deduction+" marbles. There are now "+play.marbles+" marbles left!");
+            }
+            play.Stupid();
+        }
+        else{
+            if(first == 1){
+                int deduction = troubleshoot();
+                play.marbles -= deduction;
+                System.out.println("You took "+deduction+" marbles. There are now "+play.marbles+" marbles left!");
+            }
+            play.Smart();
+        }
+
+    }
+    public void Stupid(){
+        while(this.marbles > 0){
+            int compDeduction = 1 + (int)( Math.random() * ( (this.marbles/2) + 1 ) );
+            this.marbles -= compDeduction;
+            System.out.println("The computer took "+compDeduction+" marbles. There are now "+this.marbles+" marbles left!");
+            if(this.marbles <= 0){
+                System.out.println("The computer took the last marble! You win.");
+                int deduction = troubleshoot();
+            this.marbles -= deduction;
+            if(this.marbles == 0){
+                System.out.println("You took the last marble! You lose...");
+            }
+            System.out.println("You took "+deduction+" marbles. There are now "+this.marbles+" marbles left!");
+            }
+        }
+    }
+
+    public void Smart(){
+        if( ( (this.marbles/2 ) - 63 ) <= this.marbles/2 ){
+            int compDeduction = ( (int)(this.marbles/2) - 63);
+        }
+        else if( ( (this.marbles/2 ) -  31) <= this.marbles/2 ){
+            int compDeduction = ( (int)(this.marbles/2) - 31);
+        }
+        else if( ( (this.marbles/2 ) - 15 ) <= this.marbles/2 ){
+            int compDeduction = ( (int)(this.marbles/2) - 15);
+        }
+        else if( ( (this.marbles/2 ) - 7 ) <= this.marbles/2 ){
+            int compDeduction = ( (int)(this.marbles/2) - 7);
+        }
+        else if( ( (this.marbles/2 ) - 3 ) <= this.marbles/2 ){
+            int compDeduction = ( (int)(this.marbles/2) - 3);
+        }
+        else{
+            int compDeduction = 1 + (int)( Math.random() * ( (this.marbles/2) + 1 ) );
+        }
+        int deduction = troubleshoot();
+        this.marbles -= deduction;
+        if(this.marbles == 0){
+            System.out.println("You took the last marble! You lose...");
+        }
+    }
+
+    public static int troubleshoot(){
+        int deduction = -1;
+        Scanner in = new Scanner(System.in);
+        while(deduction < 0){
+            System.out.print("How many marbles would you like to take? Please enter a number: ");
+            if(in.hasNextInt()){
+                int test = in.nextInt();
+                if(test <= (int)((marbles/2) + 1) && test >= 1){
+                    deduction = test;
+                }
+            }
+            else{ System.out.println("invalid input, try again: "); }
+        }
+        return deduction;
+    }
+}
